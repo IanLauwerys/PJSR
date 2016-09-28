@@ -90,6 +90,19 @@
 #include <pjsr/SectionBar.jsh>
 #endif
 
+// FIXME
+#include <pjsr/StdButton.jsh>
+#include <pjsr/StdIcon.jsh>
+#include <pjsr/StdCursor.jsh>
+#include <pjsr/Sizer.jsh>
+#include <pjsr/FrameStyle.jsh>
+#include <pjsr/NumericControl.jsh>
+
+// FIXME include constants
+#include <pjsr/ImageOp.jsh>
+#include <pjsr/SampleType.jsh>
+#include <pjsr/UndoFlag.jsh>
+
 // ======== # Factory classes =======================================================
 
 /// @class Factory for creating UI widgets.
@@ -353,6 +366,27 @@ function GUIFactory()
       return widget;
    }
 
+   /// Method to create a new combo box.
+   ///
+   /// @param {object} parent UI object to which this widget belongs.
+   /// @param {array} comboItems optional non-sparse array of string items to add to the combo box.
+   /// @param {integer} selectedItem optional selected combo item.
+   /// @param {string} toolTip optional string to be shown in the Combo tooltip.
+   this.fullComboBox = function( parent, comboItems, selectedItem, toolTip )
+   {
+      var widget = new ComboBox( parent );
+      if ( typeof comboItems !== 'undefined' && comboItems != null ) {
+         for (var i = 0; i < comboItems.length; ++i)
+         {
+            widget.addItem( comboItems[i] );
+         }
+      }
+      if ( typeof selectedItem !== 'undefined' && selectedItem != null ) { widget.currentItem = selectedItem; }
+      if ( typeof toolTip !== 'undefined' && toolTip != null ) { widget.toolTip = toolTip; }
+
+      return widget;
+   }
+   
    if ( DEBUGGING_MODE_ON )
    {
       console.noteln( "} GUIFactory" );
